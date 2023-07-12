@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Planilha de Quantificação de Material</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="entrada">
+        <h1>Planilha de Quantificação de Material</h1>
+
+    <form id="material-form">
+        <label for="num-pavimentos">Número de Pavimentos da Edificação:</label>
+        <input type="number" id="num-pavimentos" name="num-pavimentos">
+
+        <label for="num-pares-fibras">Número de Pares de Fibras Disponíveis:</label>
+        <input type="number" id="num-pares-fibras" name="num-pares-fibras">
+
+        <label for="medida-lance-cabo">Medida Básica para Cálculo dos Lances de Cabo do Backbone:</label>
+        <input type="text" id="medida-lance-cabo" name="medida-lance-cabo">
+
+        <label for="especificacao-cabo">Especificação do Cabo de Fibra Óptica:</label>
+        <input type="text" id="especificacao-cabo" name="especificacao-cabo">
+
+        <label for="caracteristica-fibra">Característica da Fibra Óptica:</label>
+        <input type="text" id="caracteristica-fibra" name="caracteristica-fibra">
+
+        <label for="qtd-backbones-andar">Quantidade de Backbones por Andar:</label>
+        <input type="number" id="qtd-backbones-andar" name="qtd-backbones-andar">
+
+        Existência de Backbone Primário:
+        <input type="checkbox" id="backbone-primario" name="backbone-primario">
+
+        <label for="">
+            Existência de Backbone Secundário:
+            <input type="checkbox" id="backbone-secundario" name="backbone-secundario">
+        </label>
+
+        <input type="submit" value="Gerar Planilha" onclick="Gerar()">
+    </form>
+    </div>
+    
+    <div id="planilhaResultado">     
+    </div>
+    <input type="submit" value="Voltar" onclick="Voltar()" style="display: none;" id="voltar">
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
