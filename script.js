@@ -1,5 +1,5 @@
 document.getElementById('material-form').addEventListener('submit', function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 });
 
 function Gerar() {
@@ -9,7 +9,7 @@ function Gerar() {
     voltar.style.display = "inline";
     var numPavimentos = parseInt(document.getElementById('num-pavimentos').value);
     var numParesFibras = parseInt(document.getElementById('num-pares-fibras').value);
-    var medidaLanceCabo = document.getElementById('medida-lance-cabo').value;
+    var medidaLanceCabo = parseInt(document.getElementById('medida-lance-cabo').value);
     var especificacaoCabo = document.getElementById('especificacao-cabo').value;
     var caracteristicaFibra = document.getElementById('caracteristica-fibra').value;
     var qtdBackbonesAndar = parseInt(document.getElementById('qtd-backbones-andar').value);
@@ -23,12 +23,75 @@ function Gerar() {
         var planilhaResultado = document.getElementById('planilhaResultado');
         planilhaResultado.appendChild(divCriada);
     }
-    divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse;"> <tr> <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Dados de Entrada</th> <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f2f2f2;">Valores</th> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Número de Pavimentos da Edificação:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="num-pavimentos">' + numPavimentos + '</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Número de Pares de Fibras Disponíveis:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="num-pares-fibras"> ' + numParesFibras + ' </td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Medida Básica para Cálculo dos Lances de Cabo do Backbone:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="medida-lance-cabo">' + medidaLanceCabo + '</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Especificação do Cabo de Fibra Óptica:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="especificacao-cabo">'+ especificacaoCabo +'</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Característica da Fibra Óptica:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="caracteristica-fibra">'+ caracteristicaFibra +'</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade de Backbones por Andar:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="qtd-backbones-andar">'+ qtdBackbonesAndar+'</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Existência de Backbone Primário:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="backbone-primario">'+ backbonePrimario +'</td> </tr> <tr> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Existência de Backbone Secundário:</td> <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;" id="backbone-secundario">'+backboneSecundario+'</td> </tr> </table>';
+    let medidaFibraRe = medidaLanceCabo * numParesFibras * numPavimentos;
+    divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">' +
+        '<tr style="background-color: #f2f2f2;">' +
+        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
+        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Unidade</th>' +
+        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade</th>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cabo de Fibra Óptica ' + especificacaoCabo + ' - com '+ numParesFibras + ' fibras</td>' + // Fibra Óptica Tight Buffer (FOMMIG) 50 x 125µm - com 8 fibras
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">m</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + medidaFibraRe + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Chassi DIO (Distribuído Interno Óptico) com 24 portas - 1U - 19"</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 50 x 125µm - MM - LC - duplo</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 9 x 125µm - SM - LC - duplo</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bandeja para emenda de fibra no DIO - (comporta até 12 emendas)</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Terminador Óptico para 8 fibras</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm - MM - 1,5m - simples - conector LC</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm - MM - 3,0m - duplo - conector LC</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 50 x 125µm - MM - 3m - duplo - conector LC</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm - SM - 1,5m - simples - conector LC</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm - SM - 3m - duplo - conector LC</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + + '</td>' +
+        '</tr>' +
+        '</table>';
+
     var planilhaResultado = document.getElementById('planilhaResultado');
     planilhaResultado.style.display = "inline";
 }
 
-function Voltar (){
+function Voltar() {
     let entrada = document.getElementById("entrada");
     entrada.style.display = "inline";
     var planilhaResultado = document.getElementById('planilhaResultado');
