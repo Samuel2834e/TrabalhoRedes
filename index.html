@@ -1,50 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Planilha de Quantificação de Material</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
+
     <div id="entrada">
-        <h1>Planilha de Quantificação de Material</h1>
+        <form id="material-form">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-logo">
+                        <i class="zmdi zmdi-landscape"></i>
+                    </span>
 
-    <form id="material-form">
-        <label for="num-pavimentos">Número de Pavimentos da Edificação:</label>
-        <input type="number" id="num-pavimentos" name="num-pavimentos">
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        Quantificação de Material Óptico
+                    </span>
 
-        <label for="num-pares-fibras">Número de Pares de Fibras Disponíveis por Pavimento:</label>
-        <input type="number" id="num-pares-fibras" name="num-pares-fibras">
+                    <div class="wrap-input100 validate-input">
+                        <input type="number" id="num-pavimentos" name="num-pavimentos" class="input100"
+                            placeholder="Número de Pavimentos da Edificação">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        <label for="medida-lance-cabo">Medida Básica para Cálculo dos Lances de Cabo do Backbone:</label>
-        <input type="number" id="medida-lance-cabo" name="medida-lance-cabo">
+                    <div class="wrap-input100 validate-input">
+                        <input type="number" id="num-pares-fibras" name="num-pares-fibras" class="input100"
+                            placeholder="Nº de Fibras Disponíveis por Pavimento">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        <label for="especificacao-cabo">Especificação do Cabo de Fibra Óptica:</label>
-        <input type="text" id="especificacao-cabo" name="especificacao-cabo">
+                    <div class="wrap-input100 validate-input">
+                        <input type="number" id="medida-lance-cabo" name="medida-lance-cabo" class="input100"
+                            placeholder="Medida Básica dos Lances de Cabo">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        <label for="caracteristica-fibra">Característica da Fibra Óptica:</label>
-        <input type="text" id="caracteristica-fibra" name="caracteristica-fibra">
+                    <div class="wrap-input100 validate-input">
+                        <input type="text" id="especificacao-cabo" name="especificacao-cabo"
+                            placeholder="Especificação do Cabo de Fibra Óptica" class="input100">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        <label for="qtd-backbones-andar">Quantidade de Backbones por Andar:</label>
-        <input type="number" id="qtd-backbones-andar" name="qtd-backbones-andar">
+                    <div class="wrap-input100 validate-input">
+                        <input type="text" id="caracteristica-fibra" name="caracteristica-fibra"
+                            placeholder="Característica da Fibra Óptica" class="input100">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        Existência de Backbone Primário:
-        <input type="checkbox" id="backbone-primario" name="backbone-primario">
+                    <div class="wrap-input100 validate-input">
+                        <input type="number" id="qtd-backbones-andar" name="qtd-backbones-andar"
+                            placeholder="Quantidade de Backbones por Andar" class="input100">
+                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    </div>
 
-        <label for="">
-            Existência de Backbone Secundário:
-            <input type="checkbox" id="backbone-secundario" name="backbone-secundario">
-        </label>
+                    <div class="contact100-form-checkbox">
+                        <label for="" style="color: white;">
+                            Existência de Backbone Primário:
+                            <input type="checkbox" id="backbone-primario" name="backbone-primario">
+                        </label>
 
-        <input type="submit" value="Gerar Planilha" onclick="Gerar()">
+                        <label for="" style="color: white;">
+                            Existência de Backbone Secundário:
+                            <input type="checkbox" id="backbone-secundario" name="backbone-secundario">
+                        </label>
+
+
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <input type="submit" value="Gerar Planilha" onclick="Gerar()" class="login100-form-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
     </form>
     </div>
-    
+
+
     <div id="planilhaResultado">     
     </div>
-    <input type="submit" value="Voltar" onclick="Voltar()" style="display: none;" id="voltar">
+    </br><input type="submit" value="Voltar" onclick="Voltar()" style="display: none;" id="voltar" class="login100-form-btn">
 
     <script src="script.js"></script>
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
 
 </body>
 
