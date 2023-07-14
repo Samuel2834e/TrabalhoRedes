@@ -73,7 +73,7 @@ function Gerar() {
 
     
 
-    if (numPavimentos && numParesFibras && medidaLanceCabo && especificacaoCabo && caracteristicaFibra && qtdBackbonesAndar) {
+    if (numPavimentos && numParesFibras && medidaLanceCabo && especificacaoCabo && caracteristicaFibra && qtdBackbonesAndar && backbonePrimario) {
     if (backbonePrimario == true && backboneSecundario == true) {
         divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">' +
             '<tr>' +
