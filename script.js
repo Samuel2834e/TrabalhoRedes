@@ -2,6 +2,27 @@ document.getElementById('material-form').addEventListener('submit', function (ev
     event.preventDefault();
 });
 
+function ajustePavimento() {
+    var backbonePrimario = document.getElementById('backbone-primario').checked;
+    if (backbonePrimario == true){
+        var numPavimentos = document.getElementById('num-pavimentos');
+        var numParesFibras = document.getElementById('num-pares-fibras');
+        numParesFibras.placeholder = "Nº de Fibras Disponíveis no Pavimento";
+        numPavimentos.value = 1;
+    }  
+}
+
+function ajustePavimento2() {
+    var backbonePrimario = document.getElementById('backbone-secundario').checked;
+    if (backbonePrimario == true){
+        var numPavimentos = document.getElementById('num-pavimentos');
+        var numParesFibras = document.getElementById('num-pares-fibras');
+        numParesFibras.placeholder = "Nº de Fibras Disponíveis por Pavimento";
+        numPavimentos.value = "";
+    }  
+}
+
+
 function Gerar() {
     let entrada = document.getElementById("entrada");
     entrada.style.display = "none";
@@ -30,11 +51,18 @@ function Gerar() {
     /*   let medidaFibraRe = 0;//!
     let i;
     let numPavimentosFor = numPavimentos + 1;
-    for (i = medidaLanceCabo; i >= numPavimentosFor; i--) {// 5  2
+    for (i = medidaLanceCabo; i <= numPavimentosFor; i--) {// 5  2
         medidaFibraRe += medidaLanceCabo * i;     
     }
     medidaFibraRe = medidaFibraRe * 1.2;*/
-
+/*
+    let i = 0;
+    let medidaFibraRe = 0;
+    let pavimentosFor = numPavimentos - 1;
+    for (let i = medidaLanceCabo; i <= pavimentosFor; i--) {
+         medidaFibraRe =+ medidaLanceCabo * i;        
+    }
+*/
     let medidaFibraRe = (2 * medidaLanceCabo * numPavimentos) + (medidaLanceCabo * numPavimentos);
 
     medidaFibraRe = medidaFibraRe * 1.2;
@@ -73,8 +101,8 @@ function Gerar() {
 
     
 
-    if (numPavimentos && numParesFibras && medidaLanceCabo && especificacaoCabo && caracteristicaFibra && qtdBackbonesAndar && backbonePrimario) {
-    if (backbonePrimario == true && backboneSecundario == true) {
+    if (numPavimentos && numParesFibras && medidaLanceCabo && especificacaoCabo && caracteristicaFibra && qtdBackbonesAndar) {
+    if (backboneSecundario == true) {
         divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">' +
             '<tr>' +
             '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
@@ -133,7 +161,7 @@ function Gerar() {
             '</tr>' +
             '</table>';
     }
-    if (backbonePrimario == true && backboneSecundario == false) {
+    if (backbonePrimario == true) {
         divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif">' +
         '<tr>' +
         '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
