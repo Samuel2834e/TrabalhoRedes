@@ -4,24 +4,26 @@ document.getElementById('material-form').addEventListener('submit', function (ev
 
 function ajustePavimento() {
     var backbonePrimario = document.getElementById('backbone-primario').checked;
-    if (backbonePrimario == true){
+    if (backbonePrimario == true) {
         var numPavimentos = document.getElementById('num-pavimentos');
         var numParesFibras = document.getElementById('num-pares-fibras');
+        var numDistancia = document.getElementById('medida-lance-cabo');
         numParesFibras.placeholder = "Nº de Fibras Disponíveis na Ligação";
+        numDistancia.placeholder = "Distância em metros da ligação";
         numPavimentos.value = 1;
         numPavimentos.disabled = true;
-    }  
+    }
 }
 
 function ajustePavimento2() {
     var backbonePrimario = document.getElementById('backbone-secundario').checked;
-    if (backbonePrimario == true){
+    if (backbonePrimario == true) {
         var numPavimentos = document.getElementById('num-pavimentos');
         var numParesFibras = document.getElementById('num-pares-fibras');
         numParesFibras.placeholder = "Nº de Fibras Disponíveis por Pavimento";
         numPavimentos.disabled = false;
         numPavimentos.value = "";
-    }  
+    }
 }
 
 
@@ -58,23 +60,23 @@ function Gerar() {
         medidaFibraRe += medidaLanceCabo * i;     
     }
     medidaFibraRe = medidaFibraRe * 1.2;*/
-/*
-    let i = 0;
-    let medidaFibraRe = 0;
-    let pavimentosFor = numPavimentos - 1;
-    for (let i = medidaLanceCabo; i <= pavimentosFor; i--) {
-         medidaFibraRe =+ medidaLanceCabo * i;        
-    }
-*/
-   // let medidaFibraRe = (2 * medidaLanceCabo * numPavimentos) + (medidaLanceCabo * numPavimentos);
+    /*
+        let i = 0;
+        let medidaFibraRe = 0;
+        let pavimentosFor = numPavimentos - 1;
+        for (let i = medidaLanceCabo; i <= pavimentosFor; i--) {
+             medidaFibraRe =+ medidaLanceCabo * i;        
+        }
+    */
+    // let medidaFibraRe = (2 * medidaLanceCabo * numPavimentos) + (medidaLanceCabo * numPavimentos);
 
-   let i = 0;
-   let medidaPavimentoBackbone = 0;
-   let medidaTotalBackbone = 0;
-   let medidaFibraRe;
-   for (i = 1; i < numPavimentos; i++) {
-        medidaPavimentoBackbone = medidaLanceCabo*2 + (medidaLanceCabo * i);
-        medidaTotalBackbone = medidaTotalBackbone + medidaPavimentoBackbone * qtdBackbonesAndar; 
+    let i = 0;
+    let medidaPavimentoBackbone = 0;
+    let medidaTotalBackbone = 0;
+    let medidaFibraRe;
+    for (i = 1; i < numPavimentos; i++) {
+        medidaPavimentoBackbone = medidaLanceCabo * 2 + (medidaLanceCabo * i);
+        medidaTotalBackbone = medidaTotalBackbone + medidaPavimentoBackbone * qtdBackbonesAndar;
     }
 
     medidaFibraRe = medidaTotalBackbone * 1.2;
@@ -91,169 +93,217 @@ function Gerar() {
     let bandejaEmenda = Math.ceil(aux2);
 
     // Terminador optico
-    let aux3 = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar * qtdBackbonesAndar) / 8;
-    let terminadorOptico = Math.ceil(aux3);
+    let aux3;
+    let terminadorOptico;
+    if (backbonePrimario == true) {
+        aux3 = (numParesFibras * (numPavimentos) * qtdBackbonesAndar * qtdBackbonesAndar) / 8;
+        terminadorOptico = Math.ceil(aux3);
+    } else {
+        let aux3 = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar * qtdBackbonesAndar) / 8;
+        terminadorOptico = Math.ceil(aux3);
+    }
 
     // Pigtail BB1
-    let BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar ) /2;
-    let BB1pigtailTO = (numParesFibras * (numPavimentos - 1));
+    let BB1pigtailDioPatchPanel;
+    let BB1pigtailTO;
+    if (backbonePrimario == true) {
+        BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2;
+        BB1pigtailTO = (numParesFibras * (numPavimentos));
+    } else {
+        BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2;
+        BB1pigtailTO = (numParesFibras * (numPavimentos - 1));
+    }
 
     //Cordão optico BB1
-    let BB1cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) /2;
+    let BB1cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 2;
 
     //Pigtail BB2
-    let BB2pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) /2;
-    let BB2pigtailTO = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar);
-    let BB2pigtailSwBB2 = numParesFibras * qtdBackbonesAndar;
+    let BB2pigtailDioPatchPanel;
+    let BB2pigtailTO;
+    let BB2pigtailSwBB2;
+    if (backbonePrimario == true) {
+        BB2pigtailDioPatchPanel = (numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2;
+        BB2pigtailTO = (numParesFibras * (numPavimentos) * qtdBackbonesAndar);
+        BB2pigtailSwBB2 = numParesFibras * qtdBackbonesAndar;
+    } else {
+        BB2pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2;
+        BB2pigtailTO = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar);
+        BB2pigtailSwBB2 = numParesFibras * qtdBackbonesAndar;
+    }
 
     //Cordão optico BB2
-    let BB2cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) /2;
-    let BB2cordaoOpticoSwBB2 = ((BB2pigtailSwBB2 * qtdBackbonesAndar)  / 2);
+    let BB2cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 2;
+    let BB2cordaoOpticoSwBB2 = ((BB2pigtailSwBB2 * qtdBackbonesAndar) / 2);
 
+    //Etiquetas DIO
+    let etiquetasDio = chassiRe * 24;
+
+    //Etiqueta para os cordões ópticos e pigtail´s (TO)
+    let etiquetasCoPt = (BB2pigtailDioPatchPanel * 2) + terminadorOptico;
 
     let caracteristicaFibraFinal;
 
-    if (caracteristicaFibra == "9 x 125µm"){
+    if (caracteristicaFibra == "9 x 125µm") {
         caracteristicaFibraFinal = "Monomodo";
-    }else {
+    } else {
         caracteristicaFibraFinal = "Multimodo";
     }
 
     if (numPavimentos && numParesFibras && medidaLanceCabo && especificacaoCabo && caracteristicaFibra && qtdBackbonesAndar) {
-    if (backboneSecundario == true) {
-        divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">' +
-            '<tr>' +
-            '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
-            '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Unidade</th>' +
-            '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade</th>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cabo de Fibra Óptica ' + especificacaoCabo + ' ' + caracteristicaFibra +  ' - com ' + numParesFibras + ' fibras</td>' + // Fibra Óptica Tight Buffer (FOMMIG) 50 x 125µm - com 8 fibras
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">m</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + medidaFibraRe + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Chassi DIO (Distribuído Interno Óptico) com 24 portas - 1U - 19"</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + chassiRe + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 9 x 125µm - ' + caracteristicaFibraFinal + ' - LC - duplo</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + acopladorOpticoRe / 2 + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bandeja para emenda de fibra no DIO - (comporta até 12 emendas)</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + bandejaEmenda + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Terminador Óptico para 8 fibras</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + terminadorOptico + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 3,0m - duplo - conector LC</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailDioPatchPanel + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailTO + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailSwBB2  + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - duplo - conector LC</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2cordaoOpticoTotal + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - simples - conector LC</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2cordaoOpticoSwBB2 + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para Portas do DIO' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + 2 + '</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para os cordões ópticos e pigtail´s (TO)' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-            '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + 2 + '</td>' +
-            '</tr>' +
-            '</table>';
-    }
-    if (backbonePrimario == true) {
-        divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif">' +
-        '<tr>' +
-        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
-        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Unidade</th>' +
-        '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade</th>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cabo de Fibra Óptica ' + especificacaoCabo  + ' ' + caracteristicaFibra + ' - com ' + numParesFibras + ' fibras</td>' + // Fibra Óptica Tight Buffer (FOMMIG) 50 x 125µm - com 8 fibras
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">m</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + medidaFibraRe + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Chassi DIO (Distribuído Interno Óptico) com 24 portas - 1U - 19"</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + chassiRe + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 9 x 125µm ' + caracteristicaFibraFinal + ' LC - duplo</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + acopladorOpticoRe / 2 + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bandeja para emenda de fibra no DIO - (comporta até 12 emendas)</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + bandejaEmenda + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Terminador Óptico para 8 fibras</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + terminadorOptico + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 3,0m - duplo - conector LC</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1pigtailDioPatchPanel + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm  ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1pigtailTO + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - duplo - conector LC</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1cordaoOpticoTotal + '</td>' +
-        '</tr>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para Portas do DIO' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + 2 + '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para os cordões ópticos e pigtail´s (TO)' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
-        '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + 2 + '</td>' +
-        '</tr>' +
-        '</table>';
-    }
-    }else {
+        if (backboneSecundario == true) {
+            divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Unidade</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade</th>' +
+                '</tr>' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Tabela de Especificações SEQ e SETs</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cabo de Fibra Óptica ' + especificacaoCabo + ' ' + caracteristicaFibra + ' - com ' + numParesFibras + ' fibras</td>' + // Fibra Óptica Tight Buffer (FOMMIG) 50 x 125µm - com 8 fibras
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">m</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + medidaFibraRe + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Chassi DIO (Distribuído Interno Óptico) com 24 portas - 1U - 19"</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + chassiRe + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 9 x 125µm - ' + caracteristicaFibraFinal + ' - LC - duplo</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + acopladorOpticoRe / 2 + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bandeja para emenda de fibra no DIO - (comporta até 12 emendas)</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + bandejaEmenda + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Terminador Óptico para 8 fibras</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + terminadorOptico + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 3,0m - duplo - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailDioPatchPanel + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailTO + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2pigtailSwBB2 + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - duplo - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2cordaoOpticoTotal + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - simples - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB2cordaoOpticoSwBB2 + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Miscelânea</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para Portas do DIO' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + etiquetasDio + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para os cordões ópticos e pigtail´s (TO)' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + etiquetasCoPt + '</td>' +
+                '</tr>' +
+                '</table>';
+        }
+        if (backbonePrimario == true) {
+            divCriada.innerHTML = '<table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif">' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Descrição</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Unidade</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Quantidade</th>' +
+                '</tr>' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Tabela de Especificações SEQ e SETs</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cabo de Fibra Óptica ' + especificacaoCabo + ' ' + caracteristicaFibra + ' - com ' + numParesFibras + ' fibras</td>' + // Fibra Óptica Tight Buffer (FOMMIG) 50 x 125µm - com 8 fibras
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">m</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + medidaLanceCabo + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Chassi DIO (Distribuído Interno Óptico) com 24 portas - 1U - 19"</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + chassiRe + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Acoplador óptico 9 x 125µm ' + caracteristicaFibraFinal + ' LC - duplo</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + acopladorOpticoRe / 2 + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Bandeja para emenda de fibra no DIO - (comporta até 12 emendas)</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + bandejaEmenda + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Terminador Óptico para 8 fibras</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + terminadorOptico + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm ' + caracteristicaFibraFinal + ' 3,0m - duplo - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1pigtailDioPatchPanel + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Pig tail 50 x 125µm  ' + caracteristicaFibraFinal + ' 1,5m - simples - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1pigtailTO + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cordão Óptico 9 x 125µm ' + caracteristicaFibraFinal + ' 3m - duplo - conector LC</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + BB1cordaoOpticoTotal + '</td>' +
+                '</tr>' +
+                '</tr>' +
+                '<tr>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Miscelânea</th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '<th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;"></th>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para Portas do DIO' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + etiquetasDio + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Etiqueta para os cordões ópticos e pigtail´s (TO)' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">unid.</td>' +
+                '<td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">' + etiquetasCoPt + '</td>' +
+                '</tr>' +
+                '</table>';
+        }
+    } else {
         divCriada.innerHTML = '<br><h1 onclick="Voltar()" style="text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Você não preencheu todos os campos, clique aqui para voltar</h1>';
         let voltar = document.getElementById("voltar");
-       voltar.style.display = "none";
+        voltar.style.display = "none";
     }
 
     var planilhaResultado = document.getElementById('planilhaResultado');
