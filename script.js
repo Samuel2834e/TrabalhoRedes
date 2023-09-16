@@ -8,10 +8,14 @@ function ajustePavimento() {
         var numPavimentos = document.getElementById('num-pavimentos');
         var numParesFibras = document.getElementById('num-pares-fibras');
         var numDistancia = document.getElementById('medida-lance-cabo');
+        var qtdBackbonesAndarEl = document.getElementById('qtdBBAndar');
+        var qtdBackbonesAndar = document.getElementById('qtd-backbones-andar');
         numParesFibras.placeholder = "Nº de Fibras Disponíveis na Ligação";
         numDistancia.placeholder = "Distância em metros da ligação";
         numPavimentos.value = 1;
         numPavimentos.disabled = true;
+        qtdBackbonesAndarEl.style.display = "none";
+        qtdBackbonesAndar.value = 1;
     }
 }
 
@@ -21,8 +25,12 @@ function ajustePavimento2() {
         var numPavimentos = document.getElementById('num-pavimentos');
         var numParesFibras = document.getElementById('num-pares-fibras');
         numParesFibras.placeholder = "Nº de Fibras Disponíveis por Pavimento";
+        var qtdBackbonesAndarEl = document.getElementById('qtdBBAndar');
+        var qtdBackbonesAndar = document.getElementById('qtd-backbones-andar');
         numPavimentos.disabled = false;
         numPavimentos.value = "";
+        qtdBackbonesAndarEl.style.display = "block";
+        qtdBackbonesAndar.value = "";
     }
 }
 
@@ -41,7 +49,7 @@ function Gerar() {
     var qtdBackbonesAndar = parseInt(document.getElementById('qtd-backbones-andar').value);
     var backbonePrimario = document.getElementById('backbone-primario').checked;
     var backboneSecundario = document.getElementById('backbone-secundario').checked;
-
+    let body = document.querySelector("body").style.backgroundColor = "white";
 
 
     var divCriada = document.getElementById('generatedDiv');//null inicialmente
@@ -52,24 +60,6 @@ function Gerar() {
         planilhaResultado.appendChild(divCriada);
     }
 
-    //Medida de fibra
-    /*   let medidaFibraRe = 0;//!
-    let i;
-    let numPavimentosFor = numPavimentos + 1;
-    for (i = medidaLanceCabo; i <= numPavimentosFor; i--) {// 5  2
-        medidaFibraRe += medidaLanceCabo * i;     
-    }
-    medidaFibraRe = medidaFibraRe * 1.2;*/
-    /*
-        let i = 0;
-        let medidaFibraRe = 0;
-        let pavimentosFor = numPavimentos - 1;
-        for (let i = medidaLanceCabo; i <= pavimentosFor; i--) {
-             medidaFibraRe =+ medidaLanceCabo * i;        
-        }
-    */
-    // let medidaFibraRe = (2 * medidaLanceCabo * numPavimentos) + (medidaLanceCabo * numPavimentos);
-
     let i = 0;
     let medidaPavimentoBackbone = 0;
     let medidaTotalBackbone = 0;
@@ -79,7 +69,7 @@ function Gerar() {
         medidaTotalBackbone = medidaTotalBackbone + medidaPavimentoBackbone * qtdBackbonesAndar;
     }
 
-    medidaFibraRe = medidaTotalBackbone * 1.2;
+    medidaFibraRe = Math.ceil(medidaTotalBackbone * 1.2);
 
     //Chassi
     let aux = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 24;
@@ -107,39 +97,39 @@ function Gerar() {
     let BB1pigtailDioPatchPanel;
     let BB1pigtailTO;
     if (backbonePrimario == true) {
-        BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2;
-        BB1pigtailTO = (numParesFibras * (numPavimentos));
+        BB1pigtailDioPatchPanel = Math.ceil ((numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2);
+        BB1pigtailTO = Math.ceil((numParesFibras * (numPavimentos)));
     } else {
         BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2;
-        BB1pigtailTO = (numParesFibras * (numPavimentos - 1));
+        BB1pigtailTO = Math.ceil((numParesFibras * (numPavimentos - 1)));
     }
 
     //Cordão optico BB1
-    let BB1cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 2;
+    let BB1cordaoOpticoTotal = Math.ceil((numParesFibras * numPavimentos * qtdBackbonesAndar) / 2);
 
     //Pigtail BB2
     let BB2pigtailDioPatchPanel;
     let BB2pigtailTO;
     let BB2pigtailSwBB2;
     if (backbonePrimario == true) {
-        BB2pigtailDioPatchPanel = (numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2;
-        BB2pigtailTO = (numParesFibras * (numPavimentos) * qtdBackbonesAndar);
-        BB2pigtailSwBB2 = numParesFibras * qtdBackbonesAndar;
+        BB2pigtailDioPatchPanel = Math.ceil ((numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2);
+        BB2pigtailTO = Math.ceil ((numParesFibras * (numPavimentos) * qtdBackbonesAndar));
+        BB2pigtailSwBB2 = Math.ceil( numParesFibras * qtdBackbonesAndar);
     } else {
-        BB2pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2;
-        BB2pigtailTO = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar);
-        BB2pigtailSwBB2 = numParesFibras * qtdBackbonesAndar;
+        BB2pigtailDioPatchPanel = Math.ceil((numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2);
+        BB2pigtailTO = Math.ceil((numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar));
+        BB2pigtailSwBB2 = Math.ceil(numParesFibras * qtdBackbonesAndar);
     }
 
     //Cordão optico BB2
-    let BB2cordaoOpticoTotal = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 2;
-    let BB2cordaoOpticoSwBB2 = ((BB2pigtailSwBB2 * qtdBackbonesAndar) / 2);
+    let BB2cordaoOpticoTotal = Math.ceil((numParesFibras * numPavimentos * qtdBackbonesAndar) / 2);
+    let BB2cordaoOpticoSwBB2 = Math.ceil(((BB2pigtailSwBB2 * qtdBackbonesAndar) / 2));
 
     //Etiquetas DIO
-    let etiquetasDio = chassiRe * 24;
+    let etiquetasDio = Math.ceil (chassiRe * 24);
 
     //Etiqueta para os cordões ópticos e pigtail´s (TO)
-    let etiquetasCoPt = (BB2pigtailDioPatchPanel * 2) + terminadorOptico;
+    let etiquetasCoPt = Math.ceil((BB2pigtailDioPatchPanel * 2) + terminadorOptico);
 
     let caracteristicaFibraFinal;
 
