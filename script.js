@@ -76,7 +76,7 @@ function Gerar() {
     let chassiRe = Math.ceil(aux);
 
     // Acoplador optico
-    let acopladorOpticoRe = numParesFibras * numPavimentos * qtdBackbonesAndar;
+    let acopladorOpticoRe = Math.ceil(numParesFibras * numPavimentos * qtdBackbonesAndar);
 
     // Bandeja para emenda
     let aux2 = (numParesFibras * numPavimentos * qtdBackbonesAndar) / 12;
@@ -100,7 +100,7 @@ function Gerar() {
         BB1pigtailDioPatchPanel = Math.ceil ((numParesFibras * (numPavimentos) * qtdBackbonesAndar) / 2);
         BB1pigtailTO = Math.ceil((numParesFibras * (numPavimentos)));
     } else {
-        BB1pigtailDioPatchPanel = (numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2;
+        BB1pigtailDioPatchPanel = Math.ceil((numParesFibras * (numPavimentos - 1) * qtdBackbonesAndar) / 2);
         BB1pigtailTO = Math.ceil((numParesFibras * (numPavimentos - 1)));
     }
 
