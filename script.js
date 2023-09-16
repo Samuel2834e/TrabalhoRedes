@@ -11,7 +11,7 @@ function ajustePavimento() {
         var qtdBackbonesAndarEl = document.getElementById('qtdBBAndar');
         var qtdBackbonesAndar = document.getElementById('qtd-backbones-andar');
         numParesFibras.placeholder = "Nº de Fibras Disponíveis na Ligação";
-        numDistancia.placeholder = "Distância em metros da ligação";
+        numDistancia.placeholder = "Distância em Metros da Ligação";
         numPavimentos.value = 1;
         numPavimentos.disabled = true;
         qtdBackbonesAndarEl.style.display = "none";
@@ -27,6 +27,8 @@ function ajustePavimento2() {
         numParesFibras.placeholder = "Nº de Fibras Disponíveis por Pavimento";
         var qtdBackbonesAndarEl = document.getElementById('qtdBBAndar');
         var qtdBackbonesAndar = document.getElementById('qtd-backbones-andar');
+        var numDistancia = document.getElementById('medida-lance-cabo');
+        numDistancia.placeholder = "Altura em Metros do Pavimento";
         numPavimentos.disabled = false;
         numPavimentos.value = "";
         qtdBackbonesAndarEl.style.display = "block";
